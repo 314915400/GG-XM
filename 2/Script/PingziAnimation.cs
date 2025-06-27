@@ -18,6 +18,7 @@ public class PingziAnimation : MonoBehaviour
         Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         MousePosition.z = 0;
         GameObject go= GameObject.Instantiate(pingziyuzhiti, MousePosition, Quaternion.identity);
+        Destroy(go,1);
     }
 
     public void OnMouseDown()
