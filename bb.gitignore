@@ -1,0 +1,18 @@
+# Unity自动生成的文件夹
+Library/
+Temp/
+Obj/
+# 编译生成的文件
+*.dll
+*.dll.meta
+# 日志文件
+Logs/
+# 编辑器生成的文件
+*.sln
+*.csproj
+*.userprefs
+# 操作系统生成的文件
+.DS_Store
+Thumbs.db
+# IDE生成的文件
+.vscode/
