@@ -15,6 +15,7 @@ public class 点击预设体 : MonoBehaviour
 
 
 
+
     void OnTriggerEnter(Collider other)
     {
         物体基类 wu = other.GetComponent<物体基类>();

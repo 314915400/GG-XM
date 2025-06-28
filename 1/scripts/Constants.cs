@@ -2,7 +2,7 @@
 public class Constants
 { 
     public static string STORY_PATH = "Assets/1/1/";
-    public static string DEFAULT_STORY_FILE_NAME = "1";
+    public static string DEFAULT_STORY_FILE_NAME = "hua1";
     public static string EXCEL_FILE_EXTENSION = ".xlsx";
     public static int DEFAULT_START_LINE = 1;
 
