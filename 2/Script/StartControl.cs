@@ -3,8 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class StartControl : MonoBehaviour
 {
-    public void OnButton()
+    public void OnStartButton()
     {
         SceneManager.LoadScene(1);
+    }
+    public void OnPeopleButton()
+    {
+        SceneManager.LoadScene(2);
     }
 }
