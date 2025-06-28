@@ -13,11 +13,23 @@ public class VNmang : MonoBehaviour
     public GameObject 对话框;
     public TextMeshProUGUI speakerName;
     public TypewriterEffect typewriterEffect;
+
+
+
+    public Sprite[] 图片数组; // 预设的图片数组
+    public SpriteRenderer 图片渲染器;
+    public Button 生长;
+    private int 图片索引;
+
+
+
+
     
 
     public Image avatarImage;
     public AudioSource vocalAudio;
     public Image backgroundImage;
+
     public AudioSource backgroundMusic;
     public Image characterImage1;
     public Image characterImage2;
@@ -43,12 +55,6 @@ public class VNmang : MonoBehaviour
     private int currentLine;
     private float currentTypingSpeed = Constants.DEFAULT_TYPING_SPEED;
 
-
-
-    private int 玩家参数;
-
-
-    private bool isLoad = false;
     
     
 
@@ -75,13 +81,19 @@ public class VNmang : MonoBehaviour
         
         //gamePane1.SetActive(false);//初始不显示游戏界面
     }
+
     void 初始化()
     {
+        生长.onClick.AddListener(() => Shengzhang());
         //对话框.SetActive(false);
         //gamePane1.SetActive(false);
     }
 
-
+    void Shengzhang()
+    {
+        图片渲染器.sprite = 图片数组[图片索引];
+        图片索引++;
+    }
 
 
 
@@ -107,8 +119,6 @@ public class VNmang : MonoBehaviour
                     wu.互动(wu.当前状态);
                 }
             }
-            
-
 
         }
 
@@ -218,7 +228,7 @@ public class VNmang : MonoBehaviour
 
             if (NotNullNorEmpty(data.avatarImageFileName))
             {
-                玩家参数 = Convert.ToInt32(data.avatarImageFileName);
+                //玩家参数 = Convert.ToInt32(data.avatarImageFileName);
             }
 
             if (NotNullNorEmpty(data.vocalAudioFileName))
