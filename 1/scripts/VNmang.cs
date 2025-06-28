@@ -10,7 +10,6 @@ public class VNmang : MonoBehaviour
     #region 变量
     public GameObject gamePane1;
     public GameObject 对话框;
-    public GameObject dialogueBox;
     public TextMeshProUGUI speakerName;
     public TypewriterEffect typewriterEffect;
     
@@ -37,18 +36,18 @@ public class VNmang : MonoBehaviour
     private readonly string defaultStoryFileName = Constants.DEFAULT_STORY_FILE_NAME;
     private readonly int defaultStartLine = Constants.DEFAULT_START_LINE;
     private readonly string excelFileExtension = Constants.EXCEL_FILE_EXTENSION;
-
-    private string 保存文件路径;//保存文件路径
     
     private string currentSpeakingContent;//当前行内容
 
     private List<ExcelReader.ExcelData> storyData;
     private int currentLine;
-    private string currentStoryFileName;
     private float currentTypingSpeed = Constants.DEFAULT_TYPING_SPEED;
 
 
-    
+
+    private int 玩家参数;
+
+
     private bool isLoad = false;
     
     
@@ -70,8 +69,7 @@ public class VNmang : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InitializeSaveFilePath();//初始化保存文件路径
-
+        StartGame();
 
         Invoke("初始化",0.1f);
         
@@ -79,8 +77,8 @@ public class VNmang : MonoBehaviour
     }
     void 初始化()
     {
-        dialogueBox.SetActive(false);
-        gamePane1.SetActive(false);
+        //对话框.SetActive(false);
+        //gamePane1.SetActive(false);
     }
 
 
@@ -92,24 +90,22 @@ public class VNmang : MonoBehaviour
     {
         //下面检测输入系统是否开着？不用
         //快速跳过
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+
+        if(对话框.activeSelf)
         {
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            {
 
-            DisplayNextLine();
+                DisplayNextLine();
 
 
+            }
         }
+        
     }
     #endregion
     #region 初始化
-    void InitializeSaveFilePath()
-    {
-        保存文件路径 = Path.Combine(Application.persistentDataPath,Constants.SAVE_FILE_PATH);
-        if (!Directory.Exists(保存文件路径))
-        {
-            Directory.CreateDirectory(保存文件路径);//创建目录
-        }
-    }
+    
     
     public void StartGame()
     {
@@ -145,7 +141,7 @@ public class VNmang : MonoBehaviour
 
     void LoadStoryFromFile(string fileName)
     {
-        currentStoryFileName = fileName;
+        
         var path = storyPath + fileName + excelFileExtension;
         storyData = ExcelReader.ReadExcel(path);//获取列表
         if (storyData == null || storyData.Count == 0)
@@ -174,30 +170,49 @@ public class VNmang : MonoBehaviour
         {
             gamePane1.SetActive(false);
         }
-        物体基类 obj = GameObject.Find(data.speakerName).GetComponent<物体基类>();
-
-
-        if (NotNullNorEmpty(data.speakingContent))
+        else
         {
-            //动画模块
+            物体基类 obj = GameObject.Find(data.speakerName).GetComponent<物体基类>();
+
+
+            if (NotNullNorEmpty(data.speakingContent))
+            {
+               
+                //状态修改
+                obj.当前状态 = Convert.ToInt32(data.speakingContent);
+            }
+
+            if (NotNullNorEmpty(data.avatarImageFileName))
+            {
+                玩家参数 = Convert.ToInt32(data.avatarImageFileName);
+            }
+
+            if (NotNullNorEmpty(data.vocalAudioFileName))
+            {
+
+                //应该直接调用一个函数来进行切换图片
+                int i = Convert.ToInt32(data.vocalAudioFileName);
+                print(i);
+                print(i + data.vocalAudioFileName);
+                obj.图片渲染器.sprite = obj.图片数组[i];
+            }
+            if (NotNullNorEmpty(data.backgroundImageFileName))
+            {
+                if(data.backgroundImageFileName == "Y")
+                {
+                    obj.是否可点击 = true;
+                }
+                else
+                {
+                    obj.是否可点击 = false;
+                }
+            }
+
+            currentLine++;
+            Invoke("物品移动",1f);
+            print("123456");
         }
         
-        if (NotNullNorEmpty(data.avatarImageFileName))
-        {
-           //移动方式
-        }
-        
-        if (NotNullNorEmpty(data.vocalAudioFileName))
-        {
-            //位置
-        }
-        if (NotNullNorEmpty(data.backgroundImageFileName))
-        {
-            //图片？？？
-        }
-
-        currentLine++;
-        物品移动();
     }
 
 
@@ -209,6 +224,7 @@ public class VNmang : MonoBehaviour
         {
             currentLine++;
             //执行一个函数（用嵌套）
+            对话框.SetActive(false);
             物品移动();
             //退出对话
             gamePane1.SetActive(false);
@@ -217,6 +233,7 @@ public class VNmang : MonoBehaviour
         else if (data.speakerName == "AAA")//选项模式
         {
             currentLine++;
+            对话框.SetActive(false);
             ShowChoices();
 
             return;//后面不执行了,可是还有检测鼠标的问题
@@ -324,9 +341,9 @@ public class VNmang : MonoBehaviour
         choiceButton2.GetComponentInChildren<TextMeshProUGUI>().text = data.avatarImageFileName;
         choiceButton2.onClick.AddListener(() => 按钮赋值(data.vocalAudioFileName));
         choiceButton3.GetComponentInChildren<TextMeshProUGUI>().text = data.backgroundImageFileName;
-        choiceButton3.onClick.AddListener(() => 按钮赋值(data.character1Action));
-        choiceButton4.GetComponentInChildren<TextMeshProUGUI>().text = data.coordinateX1;
-        choiceButton4.onClick.AddListener( () => 按钮赋值(data.character2Action));
+        choiceButton3.onClick.AddListener(() => 按钮赋值(data.backgroundMusicFileName));
+        choiceButton4.GetComponentInChildren<TextMeshProUGUI>().text = data.character1Action;
+        choiceButton4.onClick.AddListener( () => 按钮赋值(data.coordinateX1));
     }
 
     void 按钮赋值(string x )
@@ -449,11 +466,11 @@ public class VNmang : MonoBehaviour
     {
         //打开对话框，关闭输入
         //加载对话框内容，根据索引
-        isLoad = true;//真的需要恢复吗？我只需要改对应行数就行了吧
+        //isLoad = true;//真的需要恢复吗？我只需要改对应行数就行了吧
 
         var lineNumber = Index - 1;
-        InitializeAndLoadStory("这里输入对应文件路径，根据对应物品参数判断", lineNumber);
-        string savePath = Path.Combine(保存文件路径, Index + Constants.SAVE_FILE_EXTENSION);
+        InitializeAndLoadStory(defaultStoryFileName, lineNumber);
+       
     }
     #endregion
     #region 其他按钮

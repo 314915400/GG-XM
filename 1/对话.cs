@@ -14,4 +14,3 @@ public class 对话 : MonoBehaviour
         
     }
 }
-#ROOTNAMESPACEEND#
