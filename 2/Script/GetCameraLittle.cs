@@ -9,6 +9,7 @@ public class GetCameraLittle : MonoBehaviour
     public Transform fangjian2;
     public Transform fangjian3;
     public Transform fangjian4;
+    public Transform fangjian5;
     [Header("场景物体")]
     public GameObject bingxiang;
     public GameObject Door1;
@@ -19,6 +20,7 @@ public class GetCameraLittle : MonoBehaviour
     public Door1 door1;
     public Door2 door2;
     public Door3 door3;
+    public Door4 door4;
     private void Awake()
     {
         camera = GetComponent<Camera>();
@@ -62,7 +64,7 @@ public class GetCameraLittle : MonoBehaviour
         
             Vector3 fangjian2Position = fangjian2.position;
             fangjian2Position.z = -10;
-            camera.transform.DOPath(new Vector3[] { camera.transform.position , fangjian2Position },2)
+            camera.transform.DOPath(new Vector3[] { camera.transform.position , fangjian2Position },1)
                 .SetEase(Ease.OutQuad)
                  .OnComplete(
             () =>
@@ -72,7 +74,7 @@ public class GetCameraLittle : MonoBehaviour
                 Door1.SetActive(false);
                 //TODO:激活UI物体
                 Door2.SetActive(true);
-                door1.isEnd1 = false;
+
             }
             );
         
@@ -82,7 +84,7 @@ public class GetCameraLittle : MonoBehaviour
         
             Vector3 fangjian3Position = fangjian3.position;
             fangjian3Position.z = -10;
-            camera.transform.DOPath(new Vector3[] { camera.transform.position , fangjian3Position },2)
+            camera.transform.DOPath(new Vector3[] { camera.transform.position , fangjian3Position },1)
                 .SetEase(Ease.OutQuad)
                  .OnComplete(
             () =>
@@ -91,7 +93,6 @@ public class GetCameraLittle : MonoBehaviour
                 Door2.SetActive(false);
                 //TODO:激活UI物体
                 Door3.SetActive(true);
-                door2.isEnd2 = false;
             }
             );
         
@@ -101,7 +102,7 @@ public class GetCameraLittle : MonoBehaviour
         
             Vector3 fangjian4Position = fangjian4.position;
             fangjian4Position.z = -10;
-            camera.transform.DOPath(new Vector3[] { camera.transform.position , fangjian4Position },2)
+            camera.transform.DOPath(new Vector3[] { camera.transform.position , fangjian4Position },1)
                 .SetEase(Ease.OutQuad)
                  .OnComplete(
             () =>
@@ -110,7 +111,25 @@ public class GetCameraLittle : MonoBehaviour
                 Door3.SetActive(false);
                 //TODO:激活UI物体
                 Door4.SetActive(true);
-                door2.isEnd2 = false;
+
+            }
+            );
+        
+    }
+    public void YidongcameraTo5()
+    {
+        
+            Vector3 fangjian5Position = fangjian5.position;
+            fangjian5Position.z = -10;
+            camera.transform.DOPath(new Vector3[] { camera.transform.position , fangjian5Position },1)
+                .SetEase(Ease.OutQuad)
+                 .OnComplete(
+            () =>
+            {
+                //TODO:失活上一个场景物体
+                Door4.SetActive(false);
+                //TODO:激活UI物体
+
             }
             );
         
