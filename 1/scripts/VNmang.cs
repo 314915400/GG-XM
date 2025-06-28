@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -29,7 +30,6 @@ public class VNmang : MonoBehaviour
     public Button choiceButton1;
     public Button choiceButton2;
 
-    
 
 
     private readonly string storyPath = Constants.STORY_PATH;
@@ -90,6 +90,30 @@ public class VNmang : MonoBehaviour
     {
         //下面检测输入系统是否开着？不用
         //快速跳过
+        if(!gamePane1.activeSelf && Input.GetMouseButtonDown(0) )
+        {
+            //创建预设体
+            Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            MousePosition.z = 0;
+            
+
+            Collider2D[] ab = Physics2D.OverlapCircleAll((Vector2)MousePosition, 0.5f);
+            if (ab.Length> 0)
+            {
+                print(111);
+                物体基类 wu = ab[0].GetComponent<物体基类>();
+                if (wu.是否可点击)
+                {
+                    wu.互动(wu.当前状态);
+                }
+            }
+            
+
+
+        }
+
+
+
 
         if(对话框.activeSelf)
         {
@@ -113,13 +137,23 @@ public class VNmang : MonoBehaviour
     }
     void InitializeAndLoadStory(string fileName,int lineNumber)//
     {
+
+        gamePane1.SetActive(true);
+        对话框.SetActive(true);
+
+
+
         Initialize(lineNumber);//初始化，关闭UI
+
+
+
+
         LoadStoryFromFile(fileName);//读取文件？
-        if(isLoad)//是否在恢复状态
-        {
-            恢复();
-            isLoad = false;
-        }
+        //if(isLoad)//是否在恢复状态
+        //{
+        //    恢复();
+        //    isLoad = false;
+        //}
         DisplayNextLine();
     }
     void Initialize(int line)
@@ -191,10 +225,12 @@ public class VNmang : MonoBehaviour
             {
 
                 //应该直接调用一个函数来进行切换图片
+
                 int i = Convert.ToInt32(data.vocalAudioFileName);
-                print(i);
-                print(i + data.vocalAudioFileName);
-                obj.图片渲染器.sprite = obj.图片数组[i];
+                切换图片(obj, i);
+
+                
+                
             }
             if (NotNullNorEmpty(data.backgroundImageFileName))
             {
@@ -209,10 +245,22 @@ public class VNmang : MonoBehaviour
             }
 
             currentLine++;
-            Invoke("物品移动",1f);
-            print("123456");
+            Invoke("物品移动",3.5f);
+         
         }
         
+    }
+    public void 切换图片(物体基类 obj ,int 图片索引)
+    {
+        // 先淡出当前图片
+        StartCoroutine(obj.FadeOut());
+        // 等待淡出完成后再淡入新图片
+        StartCoroutine(WaitForFadeOutAndFadeIn( obj,图片索引));
+    }
+    private IEnumerator WaitForFadeOutAndFadeIn(物体基类 obj, int 图片索引)
+    {
+        yield return new WaitForSeconds(obj.淡出时间);
+        StartCoroutine(obj.FadeIn(图片索引));
     }
 
 
@@ -227,7 +275,7 @@ public class VNmang : MonoBehaviour
             对话框.SetActive(false);
             物品移动();
             //退出对话
-            gamePane1.SetActive(false);
+            
 
         }
         else if (data.speakerName == "AAA")//选项模式
@@ -467,9 +515,9 @@ public class VNmang : MonoBehaviour
         //打开对话框，关闭输入
         //加载对话框内容，根据索引
         //isLoad = true;//真的需要恢复吗？我只需要改对应行数就行了吧
-
-        var lineNumber = Index - 1;
-        InitializeAndLoadStory(defaultStoryFileName, lineNumber);
+        print(2222);
+        
+        InitializeAndLoadStory(defaultStoryFileName, Index);
        
     }
     #endregion
