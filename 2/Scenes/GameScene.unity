@@ -276,7 +276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 141666876}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Circle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,13 +290,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141666874}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.48, y: -5.71, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -8.11, y: -8.1, z: -10}
+  m_LocalScale: {x: 0.76, y: 0.76, z: 0.76}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &155651190
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,10 +455,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 795283090}
   m_HandleRect: {fileID: 2103361468}
   m_Direction: 0
-  m_MinValue: -6
-  m_MaxValue: 7
-  m_WholeNumbers: 1
-  m_Value: 7
+  m_MinValue: 0
+  m_MaxValue: 4
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -957,18 +957,20 @@ MonoBehaviour:
   matongzuobiao: {fileID: 1812526376}
   matong: {fileID: 1812526373}
   zhuchangjing: {fileID: 718727836}
+  wutijilei: {fileID: 1812526377}
+  isAnimation: 0
   sliderwuti1: {fileID: 799555167}
   sliderwuti2: {fileID: 1038037414}
   slider1: {fileID: 799555169}
   cameraTransform1: {fileID: 519420032}
   moveDirection1: {x: 1, y: 0, z: 1}
-  minDistance1: -8.3
-  maxDistance1: -5
+  minDistance1: -9.6
+  maxDistance1: -2.7
   slider2: {fileID: 1038037416}
   cameraTransform2: {fileID: 519420032}
   moveDirection2: {x: 0, y: 1, z: 1}
-  minDistance2: -8.33
-  maxDistance2: 3.9
+  minDistance2: -8.45
+  maxDistance2: -2.91
 --- !u!1 &519597372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,10 +1279,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 224057821}
   m_HandleRect: {fileID: 317877554}
   m_Direction: 0
-  m_MinValue: -6
-  m_MaxValue: 7
-  m_WholeNumbers: 1
-  m_Value: 7
+  m_MinValue: 0
+  m_MaxValue: 20
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1366,7 +1368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 718727838}
   - component: {fileID: 718727837}
-  - component: {fileID: 718727839}
+  - component: {fileID: 718727840}
   m_Layer: 0
   m_Name: "\u4E3B\u573A\u666F"
   m_TagString: Untagged
@@ -1444,28 +1446,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &718727839
-Animator:
-  serializedVersion: 7
+--- !u!114 &718727840
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718727836}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 98b8e0763908ed443afc91921230d926, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9280e827337794bbd656aa55a0b081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  "\u662F\u5426\u53EF\u70B9\u51FB": 1
+  "\u52A8\u753B\u673A": {fileID: 0}
 --- !u!1 &795283089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,10 +1618,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1951674564}
   m_HandleRect: {fileID: 1161529970}
   m_Direction: 0
-  m_MinValue: -6
+  m_MinValue: 0
   m_MaxValue: 7
-  m_WholeNumbers: 1
-  m_Value: 7
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1759,10 +1753,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1218617849}
   m_HandleRect: {fileID: 519597373}
   m_Direction: 0
-  m_MinValue: -6
-  m_MaxValue: 7
-  m_WholeNumbers: 1
-  m_Value: 7
+  m_MinValue: 0
+  m_MaxValue: 20
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1849,10 +1843,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 2092025476}
   m_HandleRect: {fileID: 1748896604}
   m_Direction: 0
-  m_MinValue: -6
-  m_MaxValue: 7
-  m_WholeNumbers: 1
-  m_Value: 7
+  m_MinValue: 0
+  m_MaxValue: 5
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2135,8 +2129,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 697827455}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2594,10 +2588,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 638191743}
   m_HandleRect: {fileID: 2103904033}
   m_Direction: 0
-  m_MinValue: -6
-  m_MaxValue: 7
-  m_WholeNumbers: 1
-  m_Value: 7
+  m_MinValue: 0
+  m_MaxValue: 4
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2758,7 +2752,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1812526376}
   - component: {fileID: 1812526375}
-  - component: {fileID: 1812526374}
+  - component: {fileID: 1812526377}
   m_Layer: 0
   m_Name: matong
   m_TagString: Untagged
@@ -2766,28 +2760,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!95 &1812526374
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812526373}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d95d2c9510f5efb45ac6f53a33019490, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &1812526375
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2858,6 +2830,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1812526377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812526373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9280e827337794bbd656aa55a0b081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  "\u662F\u5426\u53EF\u70B9\u51FB": 1
+  "\u52A8\u753B\u673A": {fileID: 0}
 --- !u!1 &1951674563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,7 +2877,7 @@ RectTransform:
   m_Father: {fileID: 1605057677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
