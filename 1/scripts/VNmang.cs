@@ -15,13 +15,14 @@ public class VNmang : MonoBehaviour
     public TypewriterEffect typewriterEffect;
 
 
-
+    public Image 图标;
     public Sprite[] 图片数组; // 预设的图片数组
     public SpriteRenderer 图片渲染器;
     public Button 生长;
     private int 图片索引;
+    public int 图片最大索引;
 
-
+    public GameObject 缺水;
 
 
     
@@ -91,8 +92,20 @@ public class VNmang : MonoBehaviour
 
     void Shengzhang()
     {
-        图片渲染器.sprite = 图片数组[图片索引];
-        图片索引++;
+        if(图片索引<图片最大索引)
+        {
+            图片渲染器.sprite = 图片数组[图片索引];
+            图片索引++;
+        }
+        else if(图片索引 == 图片数组.Length)
+        {
+            //游戏结束逻辑
+        }
+        else
+        {
+            生长.interactable = false;
+            缺水.SetActive(true);
+        }
     }
 
 
@@ -109,7 +122,7 @@ public class VNmang : MonoBehaviour
             MousePosition.z = 0;
             
 
-            Collider2D[] ab = Physics2D.OverlapCircleAll((Vector2)MousePosition, 0.5f);
+            Collider2D[] ab = Physics2D.OverlapCircleAll((Vector2)MousePosition, 0.2f);
             if (ab.Length> 0)
             {
                 print(111);
@@ -143,14 +156,40 @@ public class VNmang : MonoBehaviour
     
     public void StartGame()
     {
-        InitializeAndLoadStory(defaultStoryFileName,defaultStartLine);
+        InitializeAndLoadStory1(defaultStoryFileName,defaultStartLine);
+    }
+    void InitializeAndLoadStory1(string fileName, int lineNumber)//
+    {
+
+        gamePane1.SetActive(true);
+        对话框.SetActive(true);
+        生长.interactable = false;
+
+
+        Initialize(lineNumber);//初始化，关闭UI
+
+
+
+
+        LoadStoryFromFile(fileName);//读取文件？
+        //if(isLoad)//是否在恢复状态
+        //{
+        //    恢复();
+        //    isLoad = false;
+        //}
+        Invoke("Yi",0.1f);
+    }
+    void Yi()
+    {
+        对话框.SetActive(false);
+        gamePane1.SetActive(false);
     }
     void InitializeAndLoadStory(string fileName,int lineNumber)//
     {
 
         gamePane1.SetActive(true);
         对话框.SetActive(true);
-
+        生长.interactable = false;
 
 
         Initialize(lineNumber);//初始化，关闭UI
@@ -170,14 +209,14 @@ public class VNmang : MonoBehaviour
     {
         currentLine =line;
 
-        backgroundImage.gameObject.SetActive(false);
+        //backgroundImage.gameObject.SetActive(false);
         backgroundMusic.gameObject.SetActive(false);
 
         avatarImage.gameObject.SetActive(false);
         vocalAudio.gameObject.SetActive(false);
 
-        characterImage1.gameObject.SetActive(false);
-        characterImage2.gameObject.SetActive(false);
+        //characterImage1.gameObject.SetActive(false);
+        //characterImage2.gameObject.SetActive(false);
 
         choicePane1.SetActive(false);
     }
@@ -213,6 +252,7 @@ public class VNmang : MonoBehaviour
         if (data.speakerName == "PPP")
         {
             gamePane1.SetActive(false);
+            生长.interactable = true;
         }
         else
         {
@@ -229,6 +269,13 @@ public class VNmang : MonoBehaviour
             if (NotNullNorEmpty(data.avatarImageFileName))
             {
                 //玩家参数 = Convert.ToInt32(data.avatarImageFileName);
+
+                图片最大索引 += Convert.ToInt32(data.avatarImageFileName);
+                if(!生长.interactable)
+                {
+                    生长.interactable = true;
+                    缺水.SetActive(false);
+                }
             }
 
             if (NotNullNorEmpty(data.vocalAudioFileName))
@@ -252,6 +299,12 @@ public class VNmang : MonoBehaviour
                 {
                     obj.是否可点击 = false;
                 }
+            }
+            if (NotNullNorEmpty(data.character1Action))
+            {
+                //UpdateCharacterImage(data.character1Action, data.character1ImageFileName,//擦掉
+                //                     characterImage1, data.coordinateX1);//更新角色1和动
+                obj.动画机.SetTrigger(data.character1Action);
             }
 
             currentLine++;
@@ -300,6 +353,7 @@ public class VNmang : MonoBehaviour
         else if (data.speakerName == "PPP")//结束
         {
             gamePane1.SetActive(false);
+            生长.interactable = true;
             //退出对话
         }
 
@@ -336,11 +390,13 @@ public class VNmang : MonoBehaviour
 
 
 
-        //if (NotNullNorEmpty(data.character1Action))
-        //{
-        //    UpdateCharacterImage(data.character1Action, data.character1ImageFileName,//擦掉
-        //                         characterImage1,data.coordinateX1);//更新角色1和动作
-        //}
+        if (NotNullNorEmpty(data.character1Action))
+        {
+            //UpdateCharacterImage(data.character1Action, data.character1ImageFileName,//擦掉
+            //                     characterImage1, data.coordinateX1);//更新角色1和动作
+            物体基类 obj = GameObject.Find(data.speakerName).GetComponent<物体基类>();
+            obj.动画机.SetTrigger(data.character1Action);
+        }
         //if (NotNullNorEmpty(data.character2Action))
         //{
         //    UpdateCharacterImage(data.character2Action, data.character2ImageFileName,
@@ -525,8 +581,6 @@ public class VNmang : MonoBehaviour
         //打开对话框，关闭输入
         //加载对话框内容，根据索引
         //isLoad = true;//真的需要恢复吗？我只需要改对应行数就行了吧
-        print(2222);
-        
         InitializeAndLoadStory(defaultStoryFileName, Index);
        
     }

@@ -13,6 +13,8 @@ public class 物体基类 : MonoBehaviour
     public float 淡入时间 = 1.0f; // 淡入时间
     public float 淡出时间 = 1.0f; // 淡出时间
 
+    public Animator 动画机;
+
     // 淡入函数
     public IEnumerator FadeIn(int 图片索引)
     {
@@ -57,7 +59,10 @@ public class 物体基类 : MonoBehaviour
     }
 
 
-
+    public void xxx()
+    {
+        动画机.SetTrigger("xxx");
+    }
     
 
     
@@ -68,5 +73,6 @@ public class 物体基类 : MonoBehaviour
     {
         // 调用玩家的LoadGame方法
         VNmang.Instance.LoadGame(参数);
+
     }
 }
